@@ -60,6 +60,14 @@
 - **geosite.dat**：
   - [https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat](https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat)
   - [https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat](https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat)
+- **Mihomo MRS 规则包 rules-mrs.zip**：
+  - [https://github.com/levi882/v2ray-rules-dat/releases/latest/download/rules-mrs.zip](https://github.com/levi882/v2ray-rules-dat/releases/latest/download/rules-mrs.zip)
+  - [https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/rules-mrs.zip](https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/rules-mrs.zip)
+- **常用 Mihomo MRS 规则**：
+  - 直连：[direct.mrs](https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/direct.mrs)
+  - 代理：[proxy.mrs](https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/proxy.mrs)
+  - 广告拦截：[reject.mrs](https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/reject.mrs)
+  - 完整分类位于 release 分支的 `mrs/geosite`（域名）和 `mrs/geoip`（IP）目录
 - **直连域名列表 direct-list.txt**：
   - [https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt](https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt)
   - [https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/direct-list.txt](https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/direct-list.txt)
@@ -92,6 +100,40 @@
   - [https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/win-extra.txt](https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/win-extra.txt)
 
 ## 规则文件使用方式
+
+### Mihomo MRS
+
+```yaml
+rule-providers:
+  direct:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./ruleset/direct.mrs
+    url: "https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/direct.mrs"
+    interval: 86400
+  proxy:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./ruleset/proxy.mrs
+    url: "https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/proxy.mrs"
+    interval: 86400
+  reject:
+    type: http
+    behavior: domain
+    format: mrs
+    path: ./ruleset/reject.mrs
+    url: "https://cdn.jsdelivr.net/gh/levi882/v2ray-rules-dat@release/reject.mrs"
+    interval: 86400
+
+rules:
+  - RULE-SET,reject,REJECT
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,proxy,PROXY
+```
+
+> MRS 数据来自原作者仓库发布的最新 `geoip.dat` 和 `geosite.dat`。MRS 仅支持 `domain` 和 `ipcidr` behavior，因此不包含原始域名列表中的 `keyword` 和 `regexp` 规则。
 
 ### geoip.dat
 
